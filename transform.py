@@ -21,4 +21,22 @@ def equal_elements(route):
     for image in os.listdir(images_path):
         pass
 
+def jpg_to_jpeg(route):
+    """
+    Function designed to transform a jpg image into a jpeg image. 
 
+    Args 
+        route: str = Directory where the images to be changed are located.
+    """
+    
+    for item in os.listdir(route):
+        image: str = os.path.join(route, item)
+        new_image: str = os.path.join(route, item.replace(".jpg", ".jpeg"))
+        os.rename(image, new_image)
+
+        print(f'Image {image} renamed to {new_image}')
+
+        
+
+def empty_tags():
+    pass

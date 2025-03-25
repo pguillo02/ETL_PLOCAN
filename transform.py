@@ -1,4 +1,5 @@
-import os 
+import os
+import shutil
 
 def equal_elements(route):
     """
@@ -21,6 +22,7 @@ def equal_elements(route):
     for image in os.listdir(images_path):
         pass
 
+
 def jpg_to_jpeg(route):
     """
     Function designed to transform a jpg image into a jpeg image. 
@@ -36,7 +38,25 @@ def jpg_to_jpeg(route):
 
         print(f'Image {image} renamed to {new_image}')
 
-        
 
-def empty_tags():
-    pass
+def empty_tags(route: str, tagging_folder: str):
+    """
+    Function designed for sending untagged images to a specific folder.
+
+    Args: 
+        route: str = Directory where the images to be checked are located.
+        tagging_folder: str = Directory where untaged images are copied.
+    """
+
+    labels: str = os.path.join(route, "labels")
+    images: str = os.path.join(route, "images")
+
+    os.makedirs(tagging_folder, exist_ok=True)
+
+    for tag in os.listdir(labels):
+        label_path: str = os.path.join(labels, tag)
+        image_path: str = os.path.join(images, tag.replace(".txt", ".jpeg"))
+
+        if os.path.getsize(label_path) == 0:
+            shutil.copyfile(image_path, os.path.join(tagging_folder, tag.replace(".txt", ".jpeg")))
+            print(f'Image {image_path} copied to the tagging folder')     
